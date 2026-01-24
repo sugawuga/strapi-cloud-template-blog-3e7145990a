@@ -24,8 +24,7 @@
       "type": "string"
     },
     "message": {
-      "type": "text",
-      "columnType": "text"
+      "type": "text"
     },
     "status": {
       "type": "enumeration",

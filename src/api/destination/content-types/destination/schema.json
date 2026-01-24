@@ -17,8 +17,7 @@
       "unique": true
     },
     "intro": {
-      "type": "richtext",
-      "columnType": "text"
+      "type": "richtext"
     },
     "bestTime": {
       "type": "string"

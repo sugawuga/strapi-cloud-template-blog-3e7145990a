@@ -30,12 +30,10 @@
       "type": "string"
     },
     "shortDescription": {
-      "type": "text",
-      "columnType": "text"
+      "type": "text"
     },
     "overview": {
-      "type": "richtext",
-      "columnType": "text"
+      "type": "richtext"
     },
     "style": {
       "type": "json"
