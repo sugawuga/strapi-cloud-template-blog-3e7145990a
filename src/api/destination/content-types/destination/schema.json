@@ -1,0 +1,34 @@
+{
+  "kind": "collectionType",
+  "collectionName": "destinations",
+  "info": {
+    "singularName": "destination",
+    "pluralName": "destinations",
+    "displayName": "Destination",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "intro": {
+      "type": "richtext",
+      "columnType": "text"
+    },
+    "bestTime": {
+      "type": "string"
+    },
+    "imageUrl": {
+      "type": "string"
+    },
+    "experiences": {
+      "type": "json",
+      "columnType": "text"
+    }
+  }
+}

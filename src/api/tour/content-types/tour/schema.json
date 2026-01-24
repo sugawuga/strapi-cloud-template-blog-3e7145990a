@@ -1,0 +1,74 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tours",
+  "info": {
+    "singularName": "tour",
+    "pluralName": "tours",
+    "displayName": "Tour",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "region": {
+      "type": "enumeration",
+      "enum": [
+        "Nepal",
+        "Bhutan",
+        "Tibet"
+      ]
+    },
+    "duration": {
+      "type": "string"
+    },
+    "price": {
+      "type": "string"
+    },
+    "shortDescription": {
+      "type": "text",
+      "columnType": "text"
+    },
+    "overview": {
+      "type": "richtext",
+      "columnType": "text"
+    },
+    "style": {
+      "type": "json",
+      "columnType": "text"
+    },
+    "imageUrl": {
+      "type": "string"
+    },
+    "featured": {
+      "type": "boolean",
+      "default": false
+    },
+    "highlights": {
+      "type": "json",
+      "columnType": "text"
+    },
+    "included": {
+      "type": "json",
+      "columnType": "text"
+    },
+    "excluded": {
+      "type": "json",
+      "columnType": "text"
+    },
+    "itinerary": {
+      "type": "component",
+      "repeatable": true,
+      "component": "tour-info.itinerary-day"
+    },
+    "faqs": {
+      "type": "component",
+      "repeatable": true,
+      "component": "tour-info.faq"
+    }
+  }
+}

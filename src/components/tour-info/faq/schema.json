@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_tour_info_faq",
+  "info": {
+    "displayName": "FAQ",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "question": {
+      "type": "string",
+      "required": true
+    },
+    "answer": {
+      "type": "text",
+      "columnType": "text"
+    }
+  }
+}
