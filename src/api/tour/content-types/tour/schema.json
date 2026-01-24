@@ -38,8 +38,7 @@
       "columnType": "text"
     },
     "style": {
-      "type": "json",
-      "columnType": "text"
+      "type": "json"
     },
     "imageUrl": {
       "type": "string"
@@ -49,16 +48,13 @@
       "default": false
     },
     "highlights": {
-      "type": "json",
-      "columnType": "text"
+      "type": "json"
     },
     "included": {
-      "type": "json",
-      "columnType": "text"
+      "type": "json"
     },
     "excluded": {
-      "type": "json",
-      "columnType": "text"
+      "type": "json"
     },
     "itinerary": {
       "type": "component",
