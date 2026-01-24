@@ -22,6 +22,13 @@ async function seedExampleApp() {
       'Seed data has already been imported. We cannot reimport unless you clear your database first.'
     );
   }
+
+  // Ensure new permissions are set even if seed data was already imported
+  await setPublicPermissions({
+    tour: ['find', 'findOne'],
+    destination: ['find'],
+    enquiry: ['create'],
+  });
 }
 
 async function isFirstRun() {
@@ -45,18 +52,31 @@ async function setPublicPermissions(newPermissions) {
 
   // Create the new permissions and link them to the public role
   const allPermissionsToCreate = [];
-  Object.keys(newPermissions).map((controller) => {
+  for (const controller of Object.keys(newPermissions)) {
     const actions = newPermissions[controller];
-    const permissionsToCreate = actions.map((action) => {
-      return strapi.query('plugin::users-permissions.permission').create({
-        data: {
-          action: `api::${controller}.${controller}.${action}`,
+    for (const action of actions) {
+      const actionIdentifier = `api::${controller}.${controller}.${action}`;
+      
+      // Check if permission already exists
+      const existingPermission = await strapi.query('plugin::users-permissions.permission').findOne({
+        where: {
+          action: actionIdentifier,
           role: publicRole.id,
         },
       });
-    });
-    allPermissionsToCreate.push(...permissionsToCreate);
-  });
+
+      if (!existingPermission) {
+        allPermissionsToCreate.push(
+          strapi.query('plugin::users-permissions.permission').create({
+            data: {
+              action: actionIdentifier,
+              role: publicRole.id,
+            },
+          })
+        );
+      }
+    }
+  }
   await Promise.all(allPermissionsToCreate);
 }
 
@@ -101,6 +121,7 @@ async function uploadFile(file, name) {
 async function createEntry({ model, entry }) {
   try {
     // Actually create the entry in Strapi
+    // @ts-ignore
     await strapi.documents(`api::${model}.${model}`).create({
       data: entry,
     });
@@ -244,6 +265,9 @@ async function importSeedData() {
     author: ['find', 'findOne'],
     global: ['find', 'findOne'],
     about: ['find', 'findOne'],
+    tour: ['find', 'findOne'],
+    destination: ['find'],
+    enquiry: ['create'],
   });
 
   // Create all entries
