@@ -27,8 +27,7 @@
       "type": "string"
     },
     "experiences": {
-      "type": "json",
-      "columnType": "text"
+      "type": "string"
     }
   }
 }

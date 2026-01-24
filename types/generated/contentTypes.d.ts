@@ -579,7 +579,7 @@ export interface ApiDestinationDestination extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    experiences: Schema.Attribute.JSON;
+    experiences: Schema.Attribute.String;
     imageUrl: Schema.Attribute.String;
     intro: Schema.Attribute.RichText;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
