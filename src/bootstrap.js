@@ -29,6 +29,61 @@ async function seedExampleApp() {
     destination: ['find'],
     enquiry: ['create'],
   });
+
+  // Ensure authenticated role has read permissions on specific content types (idempotent)
+  await setAuthenticatedPermissions({
+    tour: ['find', 'findOne'],
+    destination: ['find', 'findOne'],
+    enquiry: ['find', 'findOne'],
+  });
+
+async function setAuthenticatedPermissions(newPermissions) {
+  // Find the ID of the authenticated role
+  const authenticatedRole = await strapi.query('plugin::users-permissions.role').findOne({
+    where: {
+      type: 'authenticated',
+    },
+  });
+
+  if (!authenticatedRole) {
+    strapi.log.warn('[bootstrap] authenticated role not found; skipping authenticated permissions setup');
+    return;
+  }
+
+  const allPermissionsToCreate = [];
+  for (const controller of Object.keys(newPermissions)) {
+    const actions = newPermissions[controller];
+    for (const action of actions) {
+      const actionIdentifier = `api::${controller}.${controller}.${action}`;
+
+      // Check if permission already exists for this role
+      const existingPermission = await strapi.query('plugin::users-permissions.permission').findOne({
+        where: {
+          action: actionIdentifier,
+          role: authenticatedRole.id,
+        },
+      });
+
+      if (!existingPermission) {
+        allPermissionsToCreate.push(
+          strapi.query('plugin::users-permissions.permission').create({
+            data: {
+              action: actionIdentifier,
+              role: authenticatedRole.id,
+            },
+          })
+        );
+      }
+    }
+  }
+
+  if (allPermissionsToCreate.length) {
+    await Promise.all(allPermissionsToCreate);
+    strapi.log.info('[bootstrap] created authenticated role permissions for controllers:', Object.keys(newPermissions).join(', '));
+  } else {
+    strapi.log.info('[bootstrap] authenticated role permissions already present');
+  }
+}
 }
 
 async function isFirstRun() {
