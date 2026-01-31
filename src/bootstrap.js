@@ -30,11 +30,11 @@ async function seedExampleApp() {
     enquiry: ['create'],
   });
 
-  // Ensure authenticated role has read permissions on specific content types (idempotent)
+  // Ensure authenticated role has broad permissions (create, update, delete)
   await setAuthenticatedPermissions({
-    tour: ['find', 'findOne'],
-    destination: ['find', 'findOne'],
-    enquiry: ['find', 'findOne'],
+    tour: ['find', 'findOne', 'create', 'update', 'delete'],
+    destination: ['find', 'findOne', 'create', 'update', 'delete'],
+    enquiry: ['find', 'findOne', 'create', 'update', 'delete'],
   });
 
 async function setAuthenticatedPermissions(newPermissions) {
