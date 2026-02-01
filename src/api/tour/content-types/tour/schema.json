@@ -38,7 +38,7 @@
     "style": {
       "type": "json"
     },
-    "imageUrl": {
+    "image": {
       "type": "string"
     },
     "featured": {
@@ -63,6 +63,16 @@
       "type": "component",
       "repeatable": true,
       "component": "tour-info.faq"
+    },
+    "routePoints": {
+      "type": "component",
+      "repeatable": true,
+      "component": "visuals.route-point"
+    },
+    "elevationData": {
+      "type": "component",
+      "repeatable": true,
+      "component": "visuals.elevation-point"
     }
   }
 }

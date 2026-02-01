@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_visuals_elevation_points",
+  "info": {
+    "displayName": "Elevation Point",
+    "icon": "chart-line",
+    "description": "Altitude data points for the elevation profile"
+  },
+  "options": {},
+  "attributes": {
+    "day": {
+      "type": "integer",
+      "required": true
+    },
+    "label": {
+      "type": "string",
+      "required": true
+    },
+    "altitude": {
+      "type": "integer",
+      "required": true
+    }
+  }
+}
