@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_elements_itinerary_days",
+  "info": {
+    "displayName": "Itinerary Day",
+    "icon": "calendar",
+    "description": "Daily breakdown of the trip"
+  },
+  "options": {},
+  "attributes": {
+    "day": {
+      "type": "integer",
+      "required": true
+    },
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "desc": {
+      "type": "text",
+      "required": true
+    }
+  }
+}

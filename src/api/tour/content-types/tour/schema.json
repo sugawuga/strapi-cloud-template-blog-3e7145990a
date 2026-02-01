@@ -57,7 +57,7 @@
     "itinerary": {
       "type": "component",
       "repeatable": true,
-      "component": "tour-info.itinerary-day"
+      "component": "elements.itinerary-day"
     },
     "faqs": {
       "type": "component",
