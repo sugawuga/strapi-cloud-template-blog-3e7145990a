@@ -73,6 +73,15 @@
       "type": "component",
       "repeatable": true,
       "component": "visuals.elevation-point"
+    },
+    "createdAt": {
+      "type": "datetime"
+    },
+    "updatedAt": {
+      "type": "datetime"
+    },
+    "publishedAt": {
+      "type": "datetime"
     }
   }
 }

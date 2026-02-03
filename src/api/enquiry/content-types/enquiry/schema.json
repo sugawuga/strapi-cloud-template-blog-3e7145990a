@@ -46,6 +46,15 @@
         "Closed"
       ],
       "default": "New"
+    },
+    "createdAt": {
+      "type": "datetime"
+    },
+    "updatedAt": {
+      "type": "datetime"
+    },
+    "publishedAt": {
+      "type": "datetime"
     }
   }
 }

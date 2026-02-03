@@ -27,6 +27,15 @@
     },
     "experiences": {
       "type": "string"
+    },
+    "createdAt": {
+      "type": "datetime"
+    },
+    "updatedAt": {
+      "type": "datetime"
+    },
+    "publishedAt": {
+      "type": "datetime"
     }
   }
 }
