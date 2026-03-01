@@ -666,6 +666,35 @@ export interface ApiGlobalGlobal extends Struct.SingleTypeSchema {
   };
 }
 
+export interface ApiLandingLanding extends Struct.SingleTypeSchema {
+  collectionName: 'landings';
+  info: {
+    displayName: 'Landing';
+    pluralName: 'landings';
+    singularName: 'landing';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    landingPageEnabled: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<false>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::landing.landing'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiTourTour extends Struct.CollectionTypeSchema {
   collectionName: 'tours';
   info: {
@@ -1224,6 +1253,7 @@ declare module '@strapi/strapi' {
       'api::destination.destination': ApiDestinationDestination;
       'api::enquiry.enquiry': ApiEnquiryEnquiry;
       'api::global.global': ApiGlobalGlobal;
+      'api::landing.landing': ApiLandingLanding;
       'api::tour.tour': ApiTourTour;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;

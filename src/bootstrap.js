@@ -28,7 +28,8 @@ async function seedExampleApp() {
     tour: ['find', 'findOne'],
     destination: ['find'],
     enquiry: ['create'],
-    article: ['find', 'findOne']
+    article: ['find', 'findOne'],
+    landing: ['find']
   });
 
   // Ensure authenticated role has broad permissions (create, update, delete)
@@ -37,6 +38,7 @@ async function seedExampleApp() {
     destination: ['find', 'findOne', 'create', 'update', 'delete'],
     enquiry: ['find', 'findOne', 'create', 'update', 'delete'],
     article: ['find', 'findOne', 'create', 'update', 'delete'],
+    landing: ['find', 'update']
   });
 
 async function setAuthenticatedPermissions(newPermissions) {
