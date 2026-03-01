@@ -1,7 +1,20 @@
 module.exports = [
   'strapi::logger',
   'strapi::errors',
-  'strapi::security',
+  {
+    name: 'strapi::security',
+    config: {
+      contentSecurityPolicy: {
+        useDefaults: true,
+        directives: {
+          'connect-src': ["'self'", 'https:'],
+          'img-src': ["'self'", 'data:', 'blob:', 'res.cloudinary.com', 'market-assets.strapi.io', '*'],
+          'media-src': ["'self'", 'data:', 'blob:', 'res.cloudinary.com', 'market-assets.strapi.io', '*'],
+          upgradeInsecureRequests: null,
+        },
+      },
+    },
+  },
   {
     name: 'strapi::cors',
     config: {
@@ -11,10 +24,11 @@ module.exports = [
           'https://saurya-adventure-5189fedd6ed7.herokuapp.com',
           'http://localhost:3000',
           'http://localhost:5000',
-          'https://aistudio.google.com/',
+          'http://localhost:5173',
+          'https://aistudio.google.com',
         ];
         const requestOrigin = ctx.request.header.origin;
-        return whitelist.includes(requestOrigin) ? requestOrigin : false;
+        return whitelist.includes(requestOrigin) ? requestOrigin : null;
       },
       // Explicit list of allowed request headers
       headers: [
@@ -33,6 +47,7 @@ module.exports = [
   'strapi::poweredBy',
   'strapi::query',
   'strapi::body',
+  'global::strip-internal-fields',
   'strapi::session',
   'strapi::favicon',
   'strapi::public',
