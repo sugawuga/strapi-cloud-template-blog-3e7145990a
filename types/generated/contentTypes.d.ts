@@ -462,7 +462,7 @@ export interface ApiAboutAbout extends Struct.SingleTypeSchema {
 export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
   collectionName: 'articles';
   info: {
-    description: 'Create your blog content';
+    description: 'Travel Journal entries';
     displayName: 'Article';
     pluralName: 'articles';
     singularName: 'article';
@@ -471,19 +471,15 @@ export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
-    author: Schema.Attribute.Relation<'manyToOne', 'api::author.author'>;
-    blocks: Schema.Attribute.DynamicZone<
-      ['shared.media', 'shared.quote', 'shared.rich-text', 'shared.slider']
-    >;
-    category: Schema.Attribute.Relation<'manyToOne', 'api::category.category'>;
-    cover: Schema.Attribute.Media<'images' | 'files' | 'videos'>;
+    author: Schema.Attribute.String & Schema.Attribute.DefaultTo<'Saurya Team'>;
+    content: Schema.Attribute.RichText & Schema.Attribute.Required;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    description: Schema.Attribute.Text &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 80;
-      }>;
+    date: Schema.Attribute.Date & Schema.Attribute.Required;
+    excerpt: Schema.Attribute.Text & Schema.Attribute.Required;
+    image: Schema.Attribute.String;
+    isPublished: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -491,8 +487,9 @@ export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
-    slug: Schema.Attribute.UID<'title'>;
-    title: Schema.Attribute.String;
+    slug: Schema.Attribute.String & Schema.Attribute.Required;
+    tags: Schema.Attribute.JSON;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -615,6 +612,8 @@ export interface ApiEnquiryEnquiry extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     destination: Schema.Attribute.String;
     email: Schema.Attribute.Email;
+    firstName: Schema.Attribute.String;
+    lastName: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -627,6 +626,8 @@ export interface ApiEnquiryEnquiry extends Struct.CollectionTypeSchema {
     publishedAt: Schema.Attribute.DateTime;
     status: Schema.Attribute.Enumeration<['New', 'Contacted', 'Closed']> &
       Schema.Attribute.DefaultTo<'New'>;
+    submittedAt: Schema.Attribute.DateTime;
+    title: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -681,13 +682,14 @@ export interface ApiTourTour extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     duration: Schema.Attribute.String;
+    elevationData: Schema.Attribute.Component<'visuals.elevation-point', true>;
     excluded: Schema.Attribute.JSON;
     faqs: Schema.Attribute.Component<'tour-info.faq', true>;
     featured: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     highlights: Schema.Attribute.JSON;
-    imageUrl: Schema.Attribute.String;
+    image: Schema.Attribute.String;
     included: Schema.Attribute.JSON;
-    itinerary: Schema.Attribute.Component<'tour-info.itinerary-day', true>;
+    itinerary: Schema.Attribute.Component<'elements.itinerary-day', true>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::tour.tour'> &
       Schema.Attribute.Private;
@@ -695,6 +697,7 @@ export interface ApiTourTour extends Struct.CollectionTypeSchema {
     price: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
     region: Schema.Attribute.Enumeration<['Nepal', 'Bhutan', 'Tibet']>;
+    routePoints: Schema.Attribute.Component<'visuals.route-point', true>;
     shortDescription: Schema.Attribute.Text;
     style: Schema.Attribute.JSON;
     title: Schema.Attribute.String & Schema.Attribute.Required;

@@ -1,5 +1,19 @@
 import type { Schema, Struct } from '@strapi/strapi';
 
+export interface ElementsItineraryDay extends Struct.ComponentSchema {
+  collectionName: 'components_elements_itinerary_days';
+  info: {
+    description: 'Daily breakdown of the trip';
+    displayName: 'Itinerary Day';
+    icon: 'calendar';
+  };
+  attributes: {
+    day: Schema.Attribute.Integer & Schema.Attribute.Required;
+    desc: Schema.Attribute.Text & Schema.Attribute.Required;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface SharedMedia extends Struct.ComponentSchema {
   collectionName: 'components_shared_media';
   info: {
@@ -87,9 +101,54 @@ export interface TourInfoItineraryDay extends Struct.ComponentSchema {
   };
 }
 
+export interface VisualsElevationPoint extends Struct.ComponentSchema {
+  collectionName: 'components_visuals_elevation_points';
+  info: {
+    description: 'Altitude data points for the elevation profile';
+    displayName: 'Elevation Point';
+    icon: 'chart-line';
+  };
+  attributes: {
+    altitude: Schema.Attribute.Integer & Schema.Attribute.Required;
+    day: Schema.Attribute.Integer & Schema.Attribute.Required;
+    label: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface VisualsRoutePoint extends Struct.ComponentSchema {
+  collectionName: 'components_visuals_route_points';
+  info: {
+    description: 'Map coordinates for expedition route';
+    displayName: 'Route Point';
+    icon: 'pin';
+  };
+  attributes: {
+    label: Schema.Attribute.String & Schema.Attribute.Required;
+    x: Schema.Attribute.Float &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 100;
+          min: 0;
+        },
+        number
+      >;
+    y: Schema.Attribute.Float &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 100;
+          min: 0;
+        },
+        number
+      >;
+  };
+}
+
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
+      'elements.itinerary-day': ElementsItineraryDay;
       'shared.media': SharedMedia;
       'shared.quote': SharedQuote;
       'shared.rich-text': SharedRichText;
@@ -97,6 +156,8 @@ declare module '@strapi/strapi' {
       'shared.slider': SharedSlider;
       'tour-info.faq': TourInfoFaq;
       'tour-info.itinerary-day': TourInfoItineraryDay;
+      'visuals.elevation-point': VisualsElevationPoint;
+      'visuals.route-point': VisualsRoutePoint;
     }
   }
 }
