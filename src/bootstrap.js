@@ -26,7 +26,7 @@ async function seedExampleApp() {
   // Ensure new permissions are set even if seed data was already imported
   await setPublicPermissions({
     tour: ['find', 'findOne'],
-    destination: ['find'],
+    destination: ['find', 'findOne'],
     enquiry: ['create'],
     article: ['find', 'findOne'],
     landing: ['find']

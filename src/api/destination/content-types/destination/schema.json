@@ -22,11 +22,11 @@
     "bestTime": {
       "type": "string"
     },
-    "imageUrl": {
+    "image": {
       "type": "string"
     },
     "experiences": {
-      "type": "string"
+      "type": "json"
     },
     "createdAt": {
       "type": "datetime"
